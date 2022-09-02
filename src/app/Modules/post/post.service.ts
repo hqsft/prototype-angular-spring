@@ -4,23 +4,25 @@ import { Injectable } from '@angular/core';
 import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Post } from './post';
-
+import { DataService } from './../../Services/data.service'
 @Injectable({
   providedIn: 'root'
 })
 export class PostService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private ds: DataService) { }
 
   showMsg: boolean = false;
   message:any="";
 
   //private apiURL = "https://jsonplaceholder.typicode.com";
   private apiURL = "http://localhost:9006/csaic/api";
+  private springURL = "http://10.8.0.3:8080/angularAPI/api";
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' +  localStorage.getItem('token')
     })
   }
 
@@ -38,35 +40,35 @@ export class PostService {
  // @return response()
    
    getAll(): Observable<any> {  
-    return this.httpClient.get(this.apiURL + '/posts/')  
+    return this.httpClient.get(this.springURL + '/post',this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )
   }
 //Create Post
   create(post:Post): Observable<any> {  
-    return this.httpClient.post(this.apiURL + '/posts/', JSON.stringify(post), this.httpOptions)  
+    return this.httpClient.post(this.springURL + '/post', JSON.stringify(post), this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )
   }  
 //Find Post
   find(id:number): Observable<any> {  
-    return this.httpClient.get(this.apiURL + '/posts/' + id)  
+    return this.httpClient.get(this.springURL + '/post/' + id,this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )
   }
   //Update Post
   update(id:number, post:Post): Observable<any> {  
-    return this.httpClient.put(this.apiURL + '/posts/' + id, JSON.stringify(post), this.httpOptions) 
+    return this.httpClient.put(this.springURL + '/post/' + id, JSON.stringify(post), this.httpOptions) 
     .pipe( 
       catchError(this.errorHandler)
     )
   }
 //Delete Post
   delete(id:number){
-    return this.httpClient.delete(this.apiURL + '/posts/' + id, this.httpOptions)  
+    return this.httpClient.delete(this.springURL + '/post/' + id, this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )
@@ -82,3 +84,7 @@ export class PostService {
 
 
 }
+function token(token: any) {
+  throw new Error('Function not implemented.');
+}
+

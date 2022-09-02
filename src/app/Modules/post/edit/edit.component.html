@@ -1,5 +1,12 @@
 
 <div class="container prviewcss">
+    <div *ngIf="ShowHide; else elseBlock"></div>
+    <ng-template #elseBlock>
+        <div class="loader-wrapper">
+            <div class="loader"></div>
+    
+        </div>
+    </ng-template>
     <div class="position-relative row form-group">
         <div class="col-lg-11 col-sm-81">
           <h4><i class="fa fa-list" aria-hidden="true"></i> Update Post</h4>
@@ -42,7 +49,7 @@
             </div>
         </div>
          
-        <button class="btn btn-primary btncss" type="submit" [disabled]="!form.valid">Update</button>
+        <button class="k-button k-primary btncss" type="submit" [disabled]="!form.valid">Update</button>
     </form>
 </div>
 </div>

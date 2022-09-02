@@ -18,19 +18,19 @@ export class IndexComponent implements OnInit {
   ngOnInit(): void {
     this.ShowHide=false;
     this.postService.getAll().subscribe((data: any)=>{
-      this.posts = data.data;
-      console.log(this.posts);
-      this.message=this.postService.message;
+      this.ShowHide=true;
+     this.posts = data.data
+     this.message=this.postService.message;
     })
   }  
 
   deletePost(id:number){
+    this.ShowHide=false;
     if(confirm("Are you sure to Detete! ")) {
     this.postService.delete(id).subscribe((res:any) => {
          this.posts = this.posts.filter(item => item.id !== id);
-         //alert(res.data);
-         this.ShowHide=false;
-         this.postService.message=res.data;
+         this.ShowHide=true;
+         this.postService.message=res.message;
          this.message=this.postService.message;
     })
   }

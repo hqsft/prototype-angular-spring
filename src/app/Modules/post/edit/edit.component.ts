@@ -21,12 +21,14 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) { }
-
+  public ShowHide:boolean;
 
   ngOnInit(): void {
+    this.ShowHide=false;
     this.id = this.route.snapshot.params['postId'];
     this.postService.find(this.id).subscribe((data: any)=>{
-      this.post = data.data;
+      this.post = data;
+      this.ShowHide=true;
     });
 
     this.form = new FormGroup({
@@ -41,14 +43,16 @@ export class EditComponent implements OnInit {
 
   
   submit(){
+    this.ShowHide=false;
     console.log(this.form.value);
-    if(confirm("Are you sure to Update ")) {
+    if(confirm("Are you sure to Update!")) {
       this.postService.update(this.id, this.form.value).subscribe((res:any) => {
         //console.log(res);
         //alert(res.data);
+        this.ShowHide=true;
+        this.router.navigateByUrl('post/index');
         this.postService.message=res.data;
         this.postService.showMsg=true;
-        this.router.navigateByUrl('post/index');
    })
     }
     

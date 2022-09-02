@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   title = 'HQ SOFTWARE CONSULTING';
   isIframe = false;
-
+  public ShowHide:boolean;
   private readonly _destroying$ = new Subject<void>();
   constructor(private http: HttpClient, @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration, private auth: DataService, private msalBroadcastService: MsalBroadcastService,
     private broadcastService: MsalBroadcastService, private route:ActivatedRoute, private router:Router ,private authService: MsalService, private ds: DataService) { }
@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    this.ShowHide=true;
     this.msalBroadcastService.msalSubject$
       .pipe(
         filter((msg: EventMessage) => msg.eventType === EventType.LOGIN_SUCCESS),
@@ -143,7 +144,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
 if(this.loginDisplay ){
-  this.router.navigateByUrl('/post');
+ 
+ 
 }
     //this.userLogin();
   }
@@ -154,9 +156,11 @@ if(this.loginDisplay ){
   name: any;
   UserInfo: any
   login() {
+    this.ShowHide=false;
     this.authService.loginPopup()
       .subscribe({
         next: (result) => {
+          this.ShowHide=true;
           console.log(result.idTokenClaims["preferred_username"]);
           console.log(result.idTokenClaims["sub"]);
           // console.log("all user", result.idTokenClaims);
@@ -193,21 +197,22 @@ if(this.loginDisplay ){
   userId: any;
   token: any;
   userLogin(email, sub) {
+    this.ShowHide=false;
     //console.log(this.loginDisplay);   
     const headers = { 'Authorization': 'Bearer my-token', 'My-Custom-Header': 'foobar' };
     const body = {
       email: this.email,
       sub: this.sub,
-      first_name: this.name,
-      last_name: this.name,
-      middle_initial: ""
+      fname: this.name,
+      lname: this.name,
+      mname: ""
     };
     // this.http.post<any>('http://localhost:9006/csaic/api/user/login', body, { headers }).subscribe(data => {
-    this.http.post<any>(' http://192.168.1.177:8080/angularAPI/api/auth/signin', body, { headers }).subscribe(data => {
-      this.token = data.token;
-      console.log("data");
-      console.log(data);
-      this.ds.setToken(data.token);
+    this.http.post<any>('http://10.8.0.3:8080/angularAPI/api/auth/signin', body, { headers }).subscribe(data => {
+      this.token = data.accessToken;
+      this.ShowHide=true;
+      this.ds.setToken(data.accessToken);
+      this.router.navigateByUrl('/post');
 
     });
   }

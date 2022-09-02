@@ -91,6 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     sessionStorage.removeItem('User')
     sessionStorage.removeItem('userInfo')
+    sessionStorage.removeItem('token')
   }
 
   setLoginDisplay() {
@@ -109,10 +110,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
      
     };
     // this.http.post<any>('http://localhost:9006/csaic/api/user/login', body, { headers }).subscribe(data => {
-    this.http.post<any>(' http://192.168.1.177:8080/angularAPI/api/auth/signin', body, { headers }).subscribe(data => {
-      this.token = data.token;
-      console.log(this.token);
-      this.ds.setToken(data.token);
+    this.http.post<any>('http://10.8.0.3:8080/angularAPI/api/auth/signin', body, { headers }).subscribe(data => {
+      this.token = data.accessToken;
+      console.log(data.accessToken);
+      this.ds.setToken(data.accessToken);
 
     });
   }

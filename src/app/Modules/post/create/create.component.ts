@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from '../post.service';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create',
@@ -11,11 +11,11 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
 export class CreateComponent implements OnInit {
 
   constructor(public postService: PostService, private router: Router) { }
-  public ShowHide:boolean;
+  public ShowHide: boolean;
   form!: FormGroup;
-
+  public value: any;
   ngOnInit(): void {
-    this.ShowHide=true;
+    this.ShowHide = true;
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
       body: new FormControl('', Validators.required)
@@ -23,18 +23,26 @@ export class CreateComponent implements OnInit {
 
   }
 
-  get f(){
+  get f() {
     return this.form.controls;
   }
 
-  submit(){
-    this.ShowHide=false;
-    console.log(this.form.value);
-    this.postService.create(this.form.value).subscribe((res:any) => {
-         console.log('Post created successfully!');
-         this.ShowHide=true;
-         this.postService.message=res.data;         
-         this.router.navigateByUrl('post/index');
+  submit() {
+    this.ShowHide = false;
+
+    this.value = {
+      'id': "",
+      'title': this.form.value.title,
+      'body': this.form.value.title,
+      'published': false
+    }
+    this.postService.create(this.value).subscribe((res: any) => {
+      ;
+
+
+      this.router.navigateByUrl('post/index');
+      this.postService.message = res.data;
+      this.ShowHide = true;
     })
   }
 

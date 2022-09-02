@@ -12,7 +12,7 @@ export class ViewComponent implements OnInit {
 
   id!: number;
   post!: Post;
-
+  public ShowHide:boolean;
   constructor(
     public postService: PostService,
     private route: ActivatedRoute,
@@ -20,10 +20,12 @@ export class ViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.ShowHide=false;
     this.id = this.route.snapshot.params['postId'];
 
     this.postService.find(this.id).subscribe((data: any)=>{
-      this.post = data.data;
+      this.post = data;
+      this.ShowHide=true;
     });
     
   }

@@ -1,31 +1,49 @@
-
 <div class="container prviewcss">
+    <div *ngIf="ShowHide; else elseBlock"></div>
+    <ng-template #elseBlock>
+        <div class="loader-wrapper">
+            <div class="loader"></div>
+
+        </div>
+    </ng-template>
     <div class="position-relative row form-group">
         <div class="col-lg-11">
-          <h4><i class="fa fa-list" aria-hidden="true"></i> View Post</h4>
-       
+            <h4><i class="fa fa-list" aria-hidden="true"></i> View Post</h4>
+
         </div>
         <div class="col-lg-1">
             <a href="#" routerLink="/post/index" class="k-button k-primary">Back</a>
-  
-        </div>
-  
-      </div>
 
-   
-    <div>
-        <strong>ID:</strong>
-        <p>{{ post.id }}</p>
+        </div>
+
     </div>
-   
-    <div>
-        <strong>Title:</strong>
-        <p>{{ post.title }}</p>
+<br/>
+    <div class="row border-css">
+        <div class="col-lg-3">
+            <strong>ID</strong>
+        </div>
+        <div class="col-lg-9">
+            <p>{{ post.id }}</p>
+        </div>
     </div>
-   
-    <div>
-        <strong>Body:</strong>
-        <p>{{ post.body }}</p>
+
+    <div class="row border-css">
+        <div class="col-lg-3">
+            <strong>Title</strong>
+        </div>
+        <div class="col-lg-9">
+            <p>{{ post.title }}</p>
+        </div>
     </div>
-   
+
+    <div class="row border-css">
+        <div class="col-lg-3">
+            <strong>Body</strong>
+        </div>
+        <div class="col-lg-9">
+            <p>{{ post.body }}</p>
+        </div>
+
+    </div>
+
 </div>

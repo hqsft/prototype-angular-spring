@@ -17,7 +17,13 @@
       </div>
     </div>
 </div>
+<div *ngIf="ShowHide; else elseBlock"></div>
+<ng-template #elseBlock>
+    <div class="loader-wrapper">
+        <div class="loader"></div>
 
+    </div>
+</ng-template>
 <div *ngIf="loginDisplay">
   <!-- <p>Login successful!</p>
     <p>Request your profile information by clicking Profile above.</p> -->
