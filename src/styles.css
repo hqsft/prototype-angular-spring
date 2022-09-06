@@ -9,8 +9,19 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.fa-times-circle-o{color: #e55f5fde;}
+.fa-check-circle{    color: #159515;}
+.alert{padding: 2px 4px !important;
+    margin: 2px 0 0 0 !important;
+    font-size: 13px !important;}
+    .alert-danger {
+        --bs-alert-color: #842029;
+        --bs-alert-bg: #f8d7da36 !important;
+        --bs-alert-border-color: #f5c2c736 !important;
+    }
+   
 .border-css{
-    border: 1px solid #ccc;
+   
     margin: 10px 0;
     padding: 11px 0 0 0;
     box-shadow: 1px 1px 6px #ccc;}
@@ -27,7 +38,8 @@ body {
     color: #337ab7 !important;
     margin-right: 5px;
 }
-
+.ng-invalid:focus, .ng-invalid:active {border-bottom: 1px solid red !important}
+.checkboxesc {padding: 10px 0 0 0;}
 .btn-edit {
     background: #cccccc33 !important;
     color: #337ab7 !important;
@@ -41,10 +53,10 @@ body {
 }
 
 .frm form {
-    border: 1px solid #ccc;
+    box-shadow: 1px 1px 5px #ccc;
     padding: 40px;
     width: 75%;
-    margin: 69px auto;
+    margin: 30px auto;
 }
 
 .example-spacer {

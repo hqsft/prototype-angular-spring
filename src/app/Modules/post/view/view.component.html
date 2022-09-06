@@ -17,33 +17,80 @@
         </div>
 
     </div>
-<br/>
-    <div class="row border-css">
-        <div class="col-lg-3">
-            <strong>ID</strong>
-        </div>
-        <div class="col-lg-9">
-            <p>{{ post.id }}</p>
-        </div>
-    </div>
+    <br />
+    <kendo-panelbar>
+        <kendo-panelbar-item title="Genral Information" [expanded]="true">
+            <ng-template kendoPanelBarContent>
+                <div class="viewpage ">
+                    <div class="">
+                        <div class="row border-css">
+                            <div class="col-lg-3">
+                                <strong>ID</strong>
+                            </div>
+                            <div class="col-lg-9">
+                                <p>{{ post.id }}</p>
+                            </div>
+                        </div>
 
-    <div class="row border-css">
-        <div class="col-lg-3">
-            <strong>Title</strong>
-        </div>
-        <div class="col-lg-9">
-            <p>{{ post.title }}</p>
-        </div>
-    </div>
+                        <div class="row border-css">
+                            <div class="col-lg-3">
+                                <strong>Title</strong>
+                            </div>
+                            <div class="col-lg-9">
+                                <p>{{ post.title }}</p>
+                            </div>
+                        </div>
+                        <div class="row border-css">
+                            <div class="col-lg-3">
+                                <strong>Email</strong>
+                            </div>
+                            <div class="col-lg-9">
+                                <p>{{ post.email }}</p>
+                            </div>
 
-    <div class="row border-css">
-        <div class="col-lg-3">
-            <strong>Body</strong>
-        </div>
-        <div class="col-lg-9">
-            <p>{{ post.body }}</p>
-        </div>
+                        </div>
+                        <div class="row border-css">
+                            <div class="col-lg-3">
+                                <strong>Project Name</strong>
+                            </div>
+                            <div class="col-lg-9">
+                                <p>{{ post.project }}</p>
+                            </div>
 
-    </div>
+                        </div>
+                        <div class="row border-css">
+                            <div class="col-lg-3">
+                                <strong>Organisation</strong>
+                            </div>
+                            <div class="col-lg-9">
+                                <p>{{ post.body }}</p>
+                            </div>
+
+                        </div>
+                        <div class="row border-css">
+                            <div class="col-lg-3">
+                                <strong>Description</strong>
+                            </div>
+                            <div class="col-lg-9">
+                                <p>{{ post.body }}</p>
+                            </div>
+
+                        </div>
+                        <div class="row border-css">
+                            <div class="col-lg-3">
+                                <strong>Status</strong>
+                            </div>
+                            <div class="col-lg-9">
+                                <p *ngIf="post.published"><i class="fa fa-check-circle" aria-hidden="true"></i> Published</p>
+                <p *ngIf="!post.published"><i class="fa fa-times-circle-o" aria-hidden="true"> Not Published</i></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </kendo-panelbar-item>
+    </kendo-panelbar>
+
 
 </div>

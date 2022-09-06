@@ -14,7 +14,7 @@ export class EditComponent implements OnInit {
   id!: number;
   post!: Post;
   form!: FormGroup;
-  
+  public isPublish:boolean
     
   constructor(
     public postService: PostService,
@@ -28,13 +28,22 @@ export class EditComponent implements OnInit {
     this.id = this.route.snapshot.params['postId'];
     this.postService.find(this.id).subscribe((data: any)=>{
       this.post = data;
+      // console.log("post", this.post.published)
+      this.isPublish  = this.post.published;
+      console.log(this.isPublish)
       this.ShowHide=true;
     });
 
+    console.log("cond2")
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
-      body: new FormControl('', Validators.required)
+      project: new FormControl('', Validators.required),
+      organisation: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      body: new FormControl('', Validators.required),
+      published: new FormControl(),
     });
+
   }
 
   get f(){

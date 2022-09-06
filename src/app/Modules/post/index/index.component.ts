@@ -20,6 +20,7 @@ export class IndexComponent implements OnInit {
     this.postService.getAll().subscribe((data: any)=>{
       this.ShowHide=true;
      this.posts = data.data
+     
      this.message=this.postService.message;
     })
   }  

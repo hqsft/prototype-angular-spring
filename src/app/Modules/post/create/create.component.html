@@ -23,7 +23,8 @@
     
     <div class="frm">
     <form  [formGroup]="form" (ngSubmit)="submit()">
-  <h4 class="h4form-title">  CREATE YOUR fORM</h4>
+  <h4 class="h4form-title">  CREATE YOUR NEW POST</h4>
+  
         <div class="form-group">
            
             <label for="title">Title</label>
@@ -36,9 +37,50 @@
                 <div *ngIf="f['title'].errors && f['title'].errors['required']">Title is required.</div>
             </div>
         </div>
+
+        <div class="form-group">
+           
+            <label for="project">Project</label>
+            <input 
+                formControlName="project"
+                id="project" 
+                type="text" 
+                class="form-control">
+            <div *ngIf="f['project'].touched && f['project'].invalid" class="alert alert-danger">
+                <div *ngIf="f['project'].errors && f['project'].errors['required']">Project is required.</div>
+            </div>
+        </div>
   
         <div class="form-group">
-            <label for="body">Body</label>
+            <label for="organisation">Organisation Name</label>
+            <input 
+                formControlName="organisation"
+                id="organisation" 
+                type="text" 
+                class="form-control">
+            
+            <div *ngIf="f['organisation'].touched && f['organisation'].invalid" class="alert alert-danger">
+                <div *ngIf="f['organisation'].errors && f['organisation'].errors['required']">Organisation is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="organisation">Email</label>
+            <input 
+                formControlName="email"
+                id="email" 
+                type="email" 
+                class="form-control">
+            
+            <div *ngIf="f['email'].touched && f['email'].invalid" class="alert alert-danger">
+                <div *ngIf="f['email'].errors && f['email'].errors['required']">Email is required.</div>
+                <div *ngIf="f['email'].errors && f['email'].errors['pattern']">Email is not valid.</div>
+            </div>
+        </div> 
+
+  
+        <div class="form-group">
+            <label for="body">Project Description</label>
             <textarea 
                 formControlName="body"
                 id="body" 
@@ -49,6 +91,14 @@
                 <div *ngIf="f['body'].errors && f['body'].errors['required']">Body is required.</div>
             </div>
         </div>
+        <span class="k-form-separator"></span>
+        <div class="form-group checkboxesc">
+            <input (change)="fieldsChange($event)" class=""  value="angular" type="checkbox"/>
+            <span> Status</span>
+        </div>
+
+              
+       
   
         <button class="k-button k-primary btncss" type="submit" [disabled]="!form.valid">Submit</button>
     </form>
