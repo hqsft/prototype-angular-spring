@@ -34,8 +34,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
       clientId: '6995e3b8-13fb-4591-b3e2-9fedae02c41e', // PPE testing environment
       // authority: 'https://login.microsoftonline.com/common', // Prod environment. Uncomment to use.
       authority: 'https://login.microsoftonline.com/d976e440-50ea-4041-be41-4313a09eada3/', // PPE testing environment.
-      redirectUri: 'http://localhost:4200/',
-      postLogoutRedirectUri: 'http://localhost:4200/'
+      redirectUri: 'https://csacangular.hsoftcloud.com/',
+      postLogoutRedirectUri: 'https://csacangular.hsoftcloud.com/'
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage,
