@@ -17,12 +17,21 @@ export class PostService {
 
   //private apiURL = "https://jsonplaceholder.typicode.com";
   private apiURL = "http://localhost:9006/csaic/api";
-  private springURL = "http://10.8.0.3:8080/angularAPI/api";
+  private springURL = "http://10.10.0.103:8080/angularAPI/api";
 
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' +  localStorage.getItem('token')
+      'Authorization': 'Bearer ' +  localStorage.getItem('token'),
+      //"Content-Type": "multipart/form-data"
+    })
+  }
+  httpOptions2 = {
+    headers: new HttpHeaders({
+      
+      'Authorization': 'Bearer ' +  localStorage.getItem('token'),
+      "Content-Type": "multipart/form-data",
+    
     })
   }
 
@@ -47,7 +56,7 @@ export class PostService {
   }
 //Create Post
   create(post:Post): Observable<any> {  
-    return this.httpClient.post(this.springURL + '/post', JSON.stringify(post), this.httpOptions)  
+    return this.httpClient.post<any>(this.springURL + '/post/save', post, this.httpOptions2)  
     .pipe(
       catchError(this.errorHandler)
     )

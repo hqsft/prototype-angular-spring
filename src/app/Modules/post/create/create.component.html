@@ -96,11 +96,11 @@
             <input (change)="fieldsChange($event)" class=""  value="angular" type="checkbox"/>
             <span> Status</span>
         </div>
-
+        <input (change)="uploadFile($event)" class="form-control"   type="file"/>
               
        
   
-        <button class="k-button k-primary btncss" type="submit" [disabled]="!form.valid">Submit</button>
+        <button class="k-button k-primary btncss" type="submit">Submit</button>
     </form>
 </div>    
 </div>

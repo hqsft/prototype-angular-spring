@@ -5,5 +5,6 @@ export interface Post {
     email:string;
     project:string;
     organisation:string;
-    published:boolean
+    published:boolean,
+    file:string
 }

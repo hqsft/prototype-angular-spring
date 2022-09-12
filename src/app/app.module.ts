@@ -18,7 +18,7 @@ import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { PostModule } from './Modules/post/post.module';
 import { PlayerModule } from './player/player.module';
-
+import {DataTablesModule} from 'angular-datatables';
 import { IPublicClientApplication, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
 import {  MsalBroadcastService, MsalInterceptorConfiguration, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 
@@ -93,6 +93,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     HttpClientModule,
     PlayerModule,
     MsalModule,
+    DataTablesModule
   ],
   providers: [
     {
