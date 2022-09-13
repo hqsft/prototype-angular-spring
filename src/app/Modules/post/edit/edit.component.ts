@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../post';
 import { PostService } from '../post.service';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -34,7 +34,7 @@ export class EditComponent implements OnInit {
       this.ShowHide=true;
     });
 
-    console.log("cond2")
+    
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
       project: new FormControl('', Validators.required),
@@ -52,18 +52,30 @@ export class EditComponent implements OnInit {
 
   
   submit(){
-    this.ShowHide=false;
-    console.log(this.form.value);
-    if(confirm("Are you sure to Update!")) {
-      this.postService.update(this.id, this.form.value).subscribe((res:any) => {
-        //console.log(res);
-        //alert(res.data);
-        this.ShowHide=true;
-        this.router.navigateByUrl('post/index');
-        this.postService.message=res.data;
-        this.postService.showMsg=true;
-   })
-    }
+    Swal.fire({
+      title: 'Do you want to Update the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Update',
+      denyButtonText: `Don't Update`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.ShowHide = false;
+       
+        this.postService.update(this.id, this.form.value).subscribe((res:any) => {
+    ;
+          this.router.navigateByUrl('post/index');
+          Swal.fire('Updated!', '', 'success')
+          this.ShowHide = true;
+        })
+
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not updated', '', 'info')
+      }
+    })
+
+  
     
     
   }

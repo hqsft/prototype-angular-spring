@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PostService } from '../post.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -97,21 +97,35 @@ this.status = values.currentTarget.checked
 }
 
   submit() {
-    this.ShowHide = false;
+    
+    Swal.fire({
+      title: 'Do you want to save the changes?',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Save',
+      denyButtonText: `Don't save`,
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        this.ShowHide = false;
+        this.value = {     
+          'title': this.form.value.title,
+          'project': this.form.value.project,
+          'organisation': this.form.value.organisation,
+          'email': this.form.value.email,
+          'body': this.form.value.body,
+          'published': this.status,      
+        }
+        this.postService.create(this.value).subscribe((res: any) => {
+    ;
+          this.router.navigateByUrl('post/index');
+          Swal.fire('Saved!', '', 'success')
+          this.ShowHide = true;
+        })
 
-    this.value = {     
-      'title': this.form.value.title,
-      'project': this.form.value.project,
-      'organisation': this.form.value.organisation,
-      'email': this.form.value.email,
-      'body': this.form.value.body,
-      'published': this.status,      
-    }
-    this.postService.create(this.value).subscribe((res: any) => {
-;
-      this.router.navigateByUrl('post/index');
-      this.postService.message = res.data;
-      this.ShowHide = true;
+      } else if (result.isDenied) {
+        Swal.fire('Changes are not saved', '', 'info')
+      }
     })
   }
 

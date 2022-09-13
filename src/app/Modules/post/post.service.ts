@@ -56,7 +56,7 @@ export class PostService {
   }
 //Create Post
   create(post:Post): Observable<any> {  
-    return this.httpClient.post<any>(this.springURL + '/post/save', post, this.httpOptions)  
+    return this.httpClient.post<any>(this.springURL + '/post', post, this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )

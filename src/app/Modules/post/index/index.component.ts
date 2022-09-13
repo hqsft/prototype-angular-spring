@@ -39,7 +39,7 @@ export class IndexComponent implements OnInit {
     } );
     }, 1);
      
-     this.message=this.postService.message;
+    // this.message=this.postService.message;
     })
    
     // location.reload();
@@ -60,8 +60,8 @@ export class IndexComponent implements OnInit {
            this.postService.delete(id).subscribe((res:any) => {
          this.posts = this.posts.filter(item => item.id !== id);
          this.ShowHide=true;
-         this.postService.message=res.message;
-         this.message=this.postService.message;
+        //  this.postService.message=res.message;
+        //  this.message=this.postService.message;
         Swal.fire(
           'Deleted!',
           this.message,
