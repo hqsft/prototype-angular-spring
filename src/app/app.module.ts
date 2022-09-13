@@ -21,7 +21,7 @@ import { PlayerModule } from './player/player.module';
 import {DataTablesModule} from 'angular-datatables';
 import { IPublicClientApplication, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
 import {  MsalBroadcastService, MsalInterceptorConfiguration, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
-
+import {APP_BASE_HREF} from '@angular/common';
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 export function loggerCallback(logLevel: LogLevel, message: string) {
@@ -113,6 +113,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
       provide: MSAL_INTERCEPTOR_CONFIG,
       useFactory: MSALInterceptorConfigFactory
     },
+    { provide: APP_BASE_HREF, useValue: '/casc/' },
     MsalService,
     MsalGuard,
     MsalBroadcastService
