@@ -1,7 +1,6 @@
 {
   "name": "msal-angular-tutorial",
   "version": "0.0.0",
-  "home":"/prototype",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

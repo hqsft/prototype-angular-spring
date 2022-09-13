@@ -17,7 +17,7 @@ export class PostService {
 
   //private apiURL = "https://jsonplaceholder.typicode.com";
   private apiURL = "http://localhost:9006/csaic/api";
-  private springURL = "http://10.10.0.103:8080/angularAPI/api";
+  private springURL = "https://csacangular.hsoftcloud.com/angularAPI/api";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -56,7 +56,7 @@ export class PostService {
   }
 //Create Post
   create(post:Post): Observable<any> {  
-    return this.httpClient.post<any>(this.springURL + '/post/save', post, this.httpOptions2)  
+    return this.httpClient.post<any>(this.springURL + '/post/save', post, this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )

@@ -9,6 +9,10 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+.paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+    
+    background: #0000000d !important;
+}
 .fa-times-circle-o{color: #e55f5fde;}
 .fa-check-circle{    color: #159515;}
 .alert{padding: 2px 4px !important;
