@@ -1,7 +1,7 @@
 {
   "name": "msal-angular-tutorial",
   "version": "0.0.0",
-  "homepage":"/casc/",
+  "homepage":"/casc",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
