@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "baseHref": "/a/",
+            "baseHref": "/csac/",
             "outputPath": "dist/msal-angular-tutorial",
             "index": "src/index.html",
             "main": "src/main.ts",
