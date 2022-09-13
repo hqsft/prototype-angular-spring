@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http"; // Import 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'; // Import 
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,7 +21,7 @@ import { PlayerModule } from './player/player.module';
 import {DataTablesModule} from 'angular-datatables';
 import { IPublicClientApplication, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
 import {  MsalBroadcastService, MsalInterceptorConfiguration, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
-import {APP_BASE_HREF} from '@angular/common';
+
 
 const isIE = window.navigator.userAgent.indexOf('MSIE ') > -1 || window.navigator.userAgent.indexOf('Trident/') > -1;
 export function loggerCallback(logLevel: LogLevel, message: string) {
