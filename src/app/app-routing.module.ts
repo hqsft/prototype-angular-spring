@@ -6,8 +6,11 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import{HomeComponent} from './Components/home/home.component'
 
 const routes: Routes = [
-  {path: 'profile', component: ProfileComponent, canActivate: [MsalGuard]},
-  {path: '', component: HomeComponent},
+  {path: '', redirectTo:'login', pathMatch:'full'},
+
+  {path: 'login', component: HomeComponent},
+  // {path: 'profile', component: ProfileComponent, canActivate: [MsalGuard]},
+ 
   {
     path: 'post',
     canActivate: [MsalGuard],
