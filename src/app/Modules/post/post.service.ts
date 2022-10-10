@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import {  Observable, throwError } from 'rxjs';
@@ -17,7 +17,8 @@ export class PostService {
 
   //private apiURL = "https://jsonplaceholder.typicode.com";
   private apiURL = "http://localhost:9006/csaic/api";
-  private springURL = "https://csacangular.hsoftcloud.com/angularAPI/api";
+   private springURL = "https://csacangular.hsoftcloud.com/angularAPI/api";
+  //private springURL = "https://csacangular.hsoftcloud.com/angularAPI/api";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -26,13 +27,18 @@ export class PostService {
       //"Content-Type": "multipart/form-data"
     })
   }
-  httpOptions2 = {
-    headers: new HttpHeaders({
+  // httpOptions2 = {
+  //   headers: new HttpHeaders({
       
-      'Authorization': 'Bearer ' +  localStorage.getItem('token'),
-      "Content-Type": "multipart/form-data",
+  //     'Authorization': 'Bearer ' +  localStorage.getItem('token'),
+  //     "Content-Type": "multipart/form-data",
     
-    })
+  //   })
+  // }
+  httpOptions2 = {
+    headers: new HttpHeaders({ 'Authorization': 'Bearer ' +  localStorage.getItem('token') }),
+          params: new HttpParams(),
+          reportProgress: false,
   }
 
   errorHandler(error:any) {
@@ -56,7 +62,7 @@ export class PostService {
   }
 //Create Post
   create(post:Post): Observable<any> {  
-    return this.httpClient.post<any>(this.springURL + '/post', post, this.httpOptions)  
+    return this.httpClient.post<any>(this.springURL + '/post/save', post, this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )
@@ -82,18 +88,4 @@ export class PostService {
       catchError(this.errorHandler)
     )
   }
-
-
-  
-
-
-
-
-
-
-
 }
-function token(token: any) {
-  throw new Error('Function not implemented.');
-}
-

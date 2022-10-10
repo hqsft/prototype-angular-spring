@@ -44,10 +44,14 @@ export class CreateComponent implements OnInit {
   }
 
   uploadFile(event) {
-    this.file = event.target.files[0];
-    console.log("file name", this.file.name)
-
+   
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      this.file = file
+      console.log("files", this.file.name)
   }
+  }
+
 
   // onFIleUpload(){
   //   console.log("file name", this.file.name)
@@ -69,20 +73,6 @@ getFile(){
     
     // })
 }
-
-// deleteFile(){
-  
-//   this.ShowHide=false;
-//   if(confirm("Are you sure to Detete! ")) {
-//   this.postService.deleteAttachemet(this.id).subscribe((res:any) => {
-//       //  this.posts = this.posts.filter(item => item.id !== id);
-//       //  this.ShowHide=true;
-//       //  this.postService.message=res.message;
-//       //  this.message=this.postService.message;
-//   })
-// }
-// }
-
 downloadFileCtrl(FileImage) {
   console.log("download file", FileImage)
   // this.downloadFile = "http://localhost:9006/nofaapi/nofa/attachements/downloadAttachementFile?file=" + FileImage;
@@ -108,20 +98,28 @@ this.status = values.currentTarget.checked
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.ShowHide = false;
-        this.value = {     
-          'title': this.form.value.title,
-          'project': this.form.value.project,
-          'organisation': this.form.value.organisation,
-          'email': this.form.value.email,
-          'body': this.form.value.body,
-          'published': this.status,      
-        }
-        this.postService.create(this.value).subscribe((res: any) => {
-    ;
-          this.router.navigateByUrl('post/index');
+         const uploadData: any = new FormData(); // Create Form Data object to upload the file in POST FORM
+    console.log("dfs",  this.form.value.title)
+    uploadData.append('title', this.form.get('title').value);
+    uploadData.append('project', this.form.get('project').value);
+    uploadData.append('organisation', this.form.get('organisation').value);
+    uploadData.append('email', this.form.get('email').value);
+    uploadData.append('body', this.form.get('body').value);     
+    uploadData.append('published', true);
+    uploadData.append('files', this.file);
+
+    this.postService.create(uploadData).subscribe((res:any) => {      
+      this.router.navigateByUrl('post/index');
           Swal.fire('Saved!', '', 'success')
           this.ShowHide = true;
-        })
+    })
+
+        // this.postService.create(this.value).subscribe((res: any) => {
+    
+        //   this.router.navigateByUrl('post/index');
+        //   Swal.fire('Saved!', '', 'success')
+        //   this.ShowHide = true;
+        // })
 
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info')

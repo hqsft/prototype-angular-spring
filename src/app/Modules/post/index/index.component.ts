@@ -26,21 +26,28 @@ export class IndexComponent implements OnInit {
     //   pageLength: 5,
     //   processing: true
     // };
-    this.postService.getAll().subscribe((data: any)=>{
-      this.ShowHide=true;
-     this.posts = data.data
-     
-     setTimeout(()=>{   
-      $('#datatableexample').DataTable( {
-        pagingType: 'full_numbers',
-        pageLength: 10,
-        processing: true,
-        lengthMenu : [10, 25, 50]
-    } );
-    }, 1);
-     
-    // this.message=this.postService.message;
-    })
+
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.postService.getAll().subscribe((data: any)=>{
+        this.ShowHide=true;
+       this.posts = data.data
+       
+       setTimeout(()=>{   
+        $('#datatableexample').DataTable( {
+          pagingType: 'full_numbers',
+          pageLength: 10,
+          processing: true,
+          lengthMenu : [10, 25, 50]
+      } );
+      }, 1);
+       
+      // this.message=this.postService.message;
+      })
+    } else {
+      return null;
+    }
+    
    
     // location.reload();
   }  

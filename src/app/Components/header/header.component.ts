@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DataService } from './../../Services/data.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,11 +17,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   title = 'HQ SOFTWARE CONSULTING';
   isIframe = false;
   loginDisplay = false;
+  testvalue: boolean = true
   private readonly _destroying$ = new Subject<void>();
   public sessionStorage = sessionStorage;
 
   constructor(private http: HttpClient, @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
-    private broadcastService: MsalBroadcastService, private authService: MsalService, private ds: DataService) { }
+    private broadcastService: MsalBroadcastService, private authService: MsalService, private ds: DataService, private router: Router) { }
 
   ngOnInit() {
     this.isIframe = window !== window.parent && !window.opener;
@@ -31,6 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this._destroying$)
       )
       .subscribe(() => {
+        console.log('test');
         this.setLoginDisplay();
       })
   }
@@ -54,8 +57,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public email: string;
   sub: string;
   name: any;
-  UserInfo:any
+  UserInfo: any
   login() {
+    this.testvalue = false
     this.authService.loginPopup()
       .subscribe({
         next: (result) => {
@@ -69,25 +73,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.userLogin(this.email, this.sub);
           this.setLoginDisplay();
 
-         this.UserInfo = {
-            Email : this.email,
+          this.UserInfo = {
+            Email: this.email,
             Sub: this.sub,
             Name: this.name
-        }
+          }
 
-        sessionStorage.setItem('User', this.name)
-        sessionStorage.setItem('userInfo', JSON.stringify(result.idTokenClaims))
+          sessionStorage.setItem('User', this.name)
+          sessionStorage.setItem('userInfo', JSON.stringify(result.idTokenClaims))
         },
         error: (error) => console.log(error)
       });
   }
- 
+
 
   logout() { // Add log out function here
     this.ds.setToken("");
     this.authService.logoutPopup({
       mainWindowRedirectUri: "/"
-      
+
     });
     sessionStorage.removeItem('User')
     sessionStorage.removeItem('userInfo')
@@ -96,7 +100,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   setLoginDisplay() {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
-    //console.log(this.authService.instance.getAllAccounts()[0].idTokenClaims.name);
+    console.log(localStorage.getItem('token'));
+    if (this.loginDisplay) {
+      if (localStorage.getItem('token')) {
+        console.log("test hai");
+        this.router.navigateByUrl('/post/index');
+      } else {
+        console.log("test nhi hai");
+        console.log(this.authService.instance.getAllAccounts()[0].idTokenClaims.preferred_username);
+        console.log(this.authService.instance.getAllAccounts()[0].idTokenClaims.sub);
+         this.email = this.authService.instance.getAllAccounts()[0].idTokenClaims.preferred_username;
+        this.sub = this.authService.instance.getAllAccounts()[0].idTokenClaims.sub;
+        this.userLogin(this.email, this.sub);
+      }
+
+    }
   }
 
   userId: any;
@@ -107,14 +125,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
     const body = {
       email: this.email,
       sub: this.sub
-     
+
     };
     // this.http.post<any>('http://localhost:9006/csaic/api/user/login', body, { headers }).subscribe(data => {
     this.http.post<any>('https://csacangular.hsoftcloud.com/angularAPI/api/auth/signin', body, { headers }).subscribe(data => {
       this.token = data.accessToken;
-      console.log(data.accessToken);
+      
       this.ds.setToken(data.accessToken);
-
+      if (localStorage.getItem('token')) {
+        console.log(data.accessToken);
+        this.router.navigateByUrl('/post/index');
+      }
+     
+      
     });
   }
 

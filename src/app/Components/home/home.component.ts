@@ -73,11 +73,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loginDisplay = this.authService.instance.getAllAccounts().length > 0;
     // console.log("logindisplay",this.loginDisplay)
     if (this.loginDisplay) {
-      if (this.testvalue) {
+      if (localStorage.getItem('token')) {
         console.log("setvlue true")
-        this.router.navigateByUrl('/post');
+        this.router.navigateByUrl('/post/index');
       } else {
-        console.log("setvlue false")
+        this.router.navigateByUrl('/login');
       }
 
     }
@@ -142,7 +142,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.token = data.accessToken;
       this.ShowHide = true;
       this.ds.setToken(data.accessToken);
-      this.router.navigateByUrl('/post');
+      sessionStorage.setItem('User', this.name)
+      if (localStorage.getItem('token')) {
+
+
+        console.log('teeeeee');
+        //this.router.navigateByUrl('/post/index');
+      }
+     
 
     });
   }
