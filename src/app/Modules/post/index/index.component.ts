@@ -27,7 +27,8 @@ export class IndexComponent implements OnInit {
     //   processing: true
     // };
 
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    console.log(token);
     if (token) {
       this.postService.getAll().subscribe((data: any)=>{
         this.ShowHide=true;
