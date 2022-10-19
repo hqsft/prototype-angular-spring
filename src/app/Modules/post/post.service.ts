@@ -27,6 +27,13 @@ export class PostService {
       //"Content-Type": "multipart/form-data"
     })
   }
+  httpOptions3 = {
+    headers: new HttpHeaders({
+      //'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' +  localStorage.getItem('token'),
+      "Content-Type": "multipart/form-data"
+    })
+  }
   // httpOptions2 = {
   //   headers: new HttpHeaders({
       
@@ -62,7 +69,7 @@ export class PostService {
   }
 //Create Post
   create(post:Post): Observable<any> {  
-    return this.httpClient.post<any>(this.springURL + '/post/save', post, this.httpOptions)  
+    return this.httpClient.post<any>(this.springURL + '/post', JSON.stringify(post), this.httpOptions)  
     .pipe(
       catchError(this.errorHandler)
     )

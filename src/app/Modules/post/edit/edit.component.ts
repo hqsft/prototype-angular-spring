@@ -15,7 +15,8 @@ export class EditComponent implements OnInit {
   post!: Post;
   form!: FormGroup;
   public isPublish:boolean
-    
+  status:any
+  file: any;
   constructor(
     public postService: PostService,
     private route: ActivatedRoute,
@@ -49,7 +50,14 @@ export class EditComponent implements OnInit {
   get f(){
     return this.form.controls;
   }
-
+  uploadFile(event) {
+   
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      this.file = file
+      console.log("files", this.file.name)
+  }
+  }
   
   submit(){
     Swal.fire({
@@ -62,9 +70,18 @@ export class EditComponent implements OnInit {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.ShowHide = false;
-       
-        this.postService.update(this.id, this.form.value).subscribe((res:any) => {
-    ;
+
+        // const uploadData: any = new FormData(); // Create Form Data object to upload the file in POST FORM
+   
+        // uploadData.append('title', this.form.get('title').value);
+        // uploadData.append('project', this.form.get('project').value);
+        // uploadData.append('organisation', this.form.get('organisation').value);
+        // uploadData.append('email', this.form.get('email').value);
+        // uploadData.append('body', this.form.get('body').value);     
+        // uploadData.append('published', true);
+        // uploadData.append('files', this.file);
+        this.postService.update(this.id, this.form.value      ).subscribe((res:any) => {
+    
           this.router.navigateByUrl('post/index');
           Swal.fire('Updated!', '', 'success')
           this.ShowHide = true;

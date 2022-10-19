@@ -98,17 +98,25 @@ this.status = values.currentTarget.checked
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         this.ShowHide = false;
-         const uploadData: any = new FormData(); // Create Form Data object to upload the file in POST FORM
-    console.log("dfs",  this.form.value.title)
-    uploadData.append('title', this.form.get('title').value);
-    uploadData.append('project', this.form.get('project').value);
-    uploadData.append('organisation', this.form.get('organisation').value);
-    uploadData.append('email', this.form.get('email').value);
-    uploadData.append('body', this.form.get('body').value);     
-    uploadData.append('published', true);
-    uploadData.append('files', this.file);
+        this.value = {
+          'title': this.form.value.title,
+          'project': this.form.value.project,
+          'organisation': this.form.value.organisation,
+          'email': this.form.value.email,
+          'body': this.form.value.body,
+          'published': this.status,
+        }
+    //      const uploadData: any = new FormData(); // Create Form Data object to upload the file in POST FORM
+   
+    // uploadData.append('title', this.form.value.title);
+    // uploadData.append('project', this.form.value.project);
+    // uploadData.append('organisation', this.form.value.organisation);
+    // uploadData.append('email', this.form.value.email);
+    // uploadData.append('body', this.form.value.body);     
+    // uploadData.append('published', true);
+    // uploadData.append('files', this.file);
 
-    this.postService.create(uploadData).subscribe((res:any) => {      
+    this.postService.create(this.value).subscribe((res:any) => {      
       this.router.navigateByUrl('post/index');
           Swal.fire('Saved!', '', 'success')
           this.ShowHide = true;
